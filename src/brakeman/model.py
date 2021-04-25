@@ -16,9 +16,9 @@ class Block(object):
 
     __slots__ = ["id", "statements", "func_calls", "predecessors", "exits"]
 
-    def __init__(self, id: str) -> None:
+    def __init__(self, id_: int) -> None:
         # Id of the block.
-        self.id = id
+        self.id = id_
         # Statements in the block.
         self.statements = []
         # Calls to functions inside the block (represents context switches to
@@ -146,7 +146,7 @@ class CFG(object):
     def __str__(self) -> str:
         return "CFG for {}".format(self.name)
 
-    def _visit_blocks(self, graph, block: Block, visited=List[str], calls=True):
+    def _visit_blocks(self, graph, block: Block, visited=List[int], calls=True):
         # Don't visit blocks twice.
         if block.id in visited:
             return
@@ -155,7 +155,6 @@ class CFG(object):
 
         graph.node(str(block.id), label=nodelabel)
         visited.append(block.id)
-
 
         # Show the block's function calls in a node.
         if calls and block.func_calls:
