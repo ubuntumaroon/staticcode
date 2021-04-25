@@ -1,7 +1,0 @@
-colorama >= 0.4.0
-exitstatus
-numpy
-ortools
-pydantic
-googlemaps
-datetime
