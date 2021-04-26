@@ -55,11 +55,17 @@ def test_overlap(overlap_data):
 
     for i, vi in enumerate(vrs):
         for j, vj in enumerate(vrs):
-            assert vi.overlap(vj) == res[i][j]
+            assert vi.is_intersected(vj) == res[i][j]
 
 
 def test_overlap2():
     vr1 = VRange().open(1, 2)
     vr2 = VRange().open(0, 5)
-    assert vr1.overlap(vr2)
-    assert vr2.overlap(vr1)
+    assert vr1.is_intersected(vr2)
+    assert vr2.is_intersected(vr1)
+
+def test_intersect():
+    vr1 = VRange().open(1, 2)
+    vr2 = VRange().open(0, 5)
+    inter = vr1.intersection(vr2)
+    assert str(inter) == '(1, 2)'

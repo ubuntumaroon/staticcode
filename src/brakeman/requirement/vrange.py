@@ -9,6 +9,10 @@ class VRange(object):
     def __init__(self, start: Any = None, end: Any = None, include_start: bool = True, include_end: bool = False) -> None:
         self.set_values(start, end, include_start, include_end)
 
+        if self.start is not None and self.end is not None and self.start > self.end:
+            raise ValueError(f"Range start value- {self.start} > end value- {self.end}!")
+
+
     def set_values(self, start: Any = None, end: Any = None, include_start: bool = True, include_end: bool = False) -> None:
         self.start = start
         self.end = end
@@ -59,7 +63,34 @@ class VRange(object):
         self.set_values(start, end, include_start=True, include_end=False)
         return self
 
-    def overlap(self, other) -> bool:
+    def intersection(self, other) -> VRange:
+        if not isinstance(other, VRange):
+            raise ValueError(f"'{other}' is not a class of {self.__class__.__name__}")
+        start, include_start = (self.start, self.include_start) if self.start is not None \
+            else (other.start, other.include_start)
+        end, include_end = (self.end, self.include_end) if self.end is not None \
+            else (other.end, other.include_end)
+
+        if self.start is not None and other.start is not None:
+            if other.start > self.start:
+                start = other.start
+                include_start = other.include_start
+            elif other.start == self.start:
+                include_start = other.include_start and self.include_start
+
+        if self.end is not None and other.end is not None:
+            if other.end < self.end:
+                end = other.end
+                include_end = other.include_end
+            elif other.end == self.end:
+                include_end = other.include_end
+
+        if start is not None and end is not None and start > end:
+            return VRange().open(start, start)
+
+        return VRange(start, end, include_start, include_end)
+
+    def is_intersected(self, other) -> bool:
         if not isinstance(other, VRange):
             raise ValueError(f"'{other}' is not a class of {self.__class__.__name__}")
         p_start, p_end = -1, 1
