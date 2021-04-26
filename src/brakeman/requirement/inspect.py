@@ -81,10 +81,15 @@ class ReqInspector(object):
     def has_vulnerabilities(self) -> bool:
         return len(self.vuls) > 0
 
-    def output(self):
+    def print(self):
         if self.has_vulnerabilities():
             print("\nPotential vulnerabilities:")
         else:
             print("\nNo vulnerabilities found:")
+        print(self.all_vuls_str())
+
+    def all_vuls_str(self, verbose: int = 1) -> str:
+        res = ""
         for req, vuls in self.vuls.items():
-            print(f"In line {req.lino} {req} has vulnerabilities: \n {vuls}")
+            res += f"In line {req.lino} {req} has vulnerabilities: \n {vuls} \n\n"
+        return res
