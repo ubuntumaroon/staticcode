@@ -69,7 +69,7 @@ class ReqInspector(object):
                     rec.lino = cnt + 1
                     yield rec
 
-    def find_vuls(self) -> dict[Requirement, dict]:
+    def find_vuls(self) -> dict[Requirement, list[dict]]:
         res = dict()
         for req in self.requirements:
             vuls = find_vulnerabilities(req)
