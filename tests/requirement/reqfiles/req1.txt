@@ -5,3 +5,7 @@ SomeProject >=1.2,<2.0
 SomeProject~=1.4.2
 
 aegea == 1.0
+
+aiida
+
+electrumx
