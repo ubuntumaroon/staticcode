@@ -1,34 +1,39 @@
-Routing
+Brakeman
 ================
 
-Routing optimization project based on Google OR-tools and OSRM table service.
+A static code analysis tool to detect security vulnerabilities in API application
+developed on FastAPI
 
 Requirements
 ------------
 
-Python 3.8+.
-Google OR-tools
-OSRM table services running on port:5000
+Python 3.9+.
+graphviz
 
 How to use
 ----------
+Install dependencies first to view CFG plot:
+.. code-block:: shell
+
+    sudo apt install graphviz
+
+    or for mac:
+
+    brew install graphviz
+
+To see test results pleas run:
+
 .. code-block:: python
 
-    from routing.solver import Solver
+    pytest -s
 
-    result = Solver.solve(data)
-    result.json()   # convert to json
-
-
-This package use Pydantic models for input and output data.
-Please refer to the Request models for input data,
-and Response models for output
+Run against a source file:
 
 Options:
 
-* No need to assign vehicle start point. The algorithm will optimize start points.
-* Set penalties in Optimization, to turn on/off drop node options and how to reduce number of vehicles
-* Runs faster with more restrictions
+* Dependency analysis only:
+* syntax analysis:
+* CFG analysis:
 
 
 
@@ -41,10 +46,7 @@ Dependencies
 
 Dependencies are defined in:
 
-- ``requirements.in``
-
 - ``requirements.txt``
 
-- ``dev-requirements.in``
 
 - ``dev-requirements.txt``
