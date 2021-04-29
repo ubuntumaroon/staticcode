@@ -1,35 +1,25 @@
 import subprocess
-from flask import Flask, render_template, request
+from fastapi import FastAPI, request
 
-app = Flask(__name__)
+app = FastAPI()
 
-@app.route('/')
-def index():
-    with open('menu.txt','r') as f:
-        menu = f.read()
 
-    return render_template('command_injection.html', menu=menu)
-
-@app.route('/menu', methods=['POST'])
+@app.route('/menu')
 def menu():
-    param = request.form['suggestion']
-    command = 'echo ' + param + ' >> ' + 'menu.txt'
+    command = request.form['suggestion']
+    # command = 'echo ' + param + ' >> ' + 'menu.txt'
 
     subprocess.call(command, shell=True)
 
-    with open('menu.txt','r') as f:
-        menu = f.read()
+    return {"status": 'OK'}
 
-    return render_template('command_injection.html', menu=menu)
 
 @app.route('/clean')
 def clean():
     subprocess.call('echo Menu: > menu.txt', shell=True)
+    # more code here
+    return {"status": 'OK'}
 
-    with open('menu.txt','r') as f:
-        menu = f.read()
-
-    return render_template('command_injection.html', menu=menu)
 
 if __name__ == '__main__':
     app.run(debug=True)

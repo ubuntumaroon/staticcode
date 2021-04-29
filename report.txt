@@ -1,0 +1,12 @@
+1 vulnerability found:
+Vulnerability 1:
+File: ./tests/cfg/vuls/command_injection.py
+ > User input at line 15, source "form[":
+	 param = request.form[]
+Reassigned in:
+	File: ./tests/cfg/vuls/command_injection.py
+	 > Line 16: command = 'echo ' + param + ' >> ' + 'menu.txt'
+File: ./tests/cfg/vuls/command_injection.py
+ > reaches line 18, sink "subprocess.call(":
+	~call_1 = ret_subprocess.call(command, shell=True)
+

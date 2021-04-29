@@ -58,7 +58,9 @@ def retrieve_nosec_lines(
     )
 
 
-def analyze(files):
+def analyze(file):
+    files = discover_files([file], "")
+
     nosec_lines = defaultdict(set)
     cfg_list = list()
     for path in sorted(files):
