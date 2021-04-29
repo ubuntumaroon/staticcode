@@ -10,3 +10,5 @@ graphviz
 
 requirements-parser
 safety-db
+
+python-taint
